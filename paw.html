@@ -8,23 +8,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Permanent+Marker&family=Nunito:wght@300;400;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --yellow: #ffd500;
-      --yellow-dark: #e0a800;
-      --pink: #ff2d78;
-      --pink-dark: #cc1a5a;
-      --teal: #00e5cc;
-      --teal-dark: #00b8a3;
-      --orange: #ff6b00;
-      --purple: #9b00ff;
-      --bg: #08060a;
-      --bg-mid: #0d0a12;
-      --bg-card: #120f1a;
-      --text: #f5f0ff;
-      --text-muted: #a090c0;
-      --text-dim: #604080;
-      --border: rgba(255,213,0,0.1);
-      --border-pink: rgba(255,45,120,0.3);
-      --border-teal: rgba(0,229,204,0.3);
+      --blue: #1a6fff;
+      --blue-bright: #4d94ff;
+      --blue-dark: #0a3fa8;
+      --blue-dim: #0d2d6e;
+      --silver: #c0c8d8;
+      --silver-light: #e8edf5;
+      --silver-dim: #7a8899;
+      --white: #f0f4ff;
+      --bg: #04060f;
+      --bg-mid: #070c1a;
+      --bg-card: #0a1020;
+      --text: #e8edf5;
+      --text-muted: #8898b8;
+      --text-dim: #3a4a6a;
+      --border: rgba(26,111,255,0.12);
+      --border-blue: rgba(26,111,255,0.35);
+      --border-silver: rgba(192,200,216,0.2);
       --font-display: 'Permanent Marker', cursive;
       --font-fun: 'Boogaloo', cursive;
       --font-body: 'Nunito', sans-serif;
@@ -52,20 +52,44 @@
       98% { opacity: 0.1; }
     }
 
-    @keyframes marquee-spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-8px); }
     }
 
     @keyframes glow-pulse {
-      0%, 100% { text-shadow: 0 0 20px var(--yellow), 0 0 40px var(--yellow); }
-      50% { text-shadow: 0 0 40px var(--yellow), 0 0 80px var(--yellow), 0 0 120px rgba(255,213,0,0.3); }
+      0%, 100% { text-shadow: 0 0 20px var(--blue), 0 0 40px var(--blue-bright); }
+      50% { text-shadow: 0 0 40px var(--blue-bright), 0 0 80px var(--blue), 0 0 120px rgba(26,111,255,0.3); }
     }
+
+    /* Ghost easter egg */
+    @keyframes ghost-float {
+      0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+      10% { opacity: 0.7; }
+      45% { transform: translateY(-30px) translateX(20px); opacity: 0.5; }
+      80% { transform: translateY(-10px) translateX(-10px); opacity: 0.3; }
+      95% { opacity: 0; }
+    }
+
+    @keyframes ghost-eyes {
+      0%, 40%, 60%, 100% { transform: scaleY(1); }
+      50% { transform: scaleY(0.1); }
+    }
+
+    .ghost {
+      position: fixed;
+      font-size: 48px;
+      z-index: 999;
+      pointer-events: none;
+      opacity: 0;
+      filter: drop-shadow(0 0 12px rgba(26,111,255,0.8));
+      animation: ghost-float var(--ghost-duration, 12s) var(--ghost-delay, 8s) infinite;
+    }
+
+    .ghost-1 { bottom: 20%; right: 8%; --ghost-duration: 14s; --ghost-delay: 5s; font-size: 36px; }
+    .ghost-2 { top: 30%; left: 6%; --ghost-duration: 18s; --ghost-delay: 22s; font-size: 52px; }
+    .ghost-3 { bottom: 40%; left: 15%; --ghost-duration: 11s; --ghost-delay: 45s; font-size: 28px; }
+    .ghost-4 { top: 15%; right: 20%; --ghost-duration: 16s; --ghost-delay: 67s; font-size: 42px; }
 
     /* ===== NAV ===== */
     .nav {
@@ -73,34 +97,28 @@
       top: 0; left: 0; right: 0;
       z-index: 100;
       height: 64px;
-      background: rgba(8,6,10,0.97);
+      background: rgba(4,6,15,0.97);
       backdrop-filter: blur(16px);
-      border-bottom: 2px solid var(--yellow);
+      border-bottom: 2px solid var(--blue);
       display: flex;
       align-items: center;
       padding: 0 2rem;
       gap: 2rem;
     }
 
-    /* Carnival light dots on nav border */
     .nav::after {
       content: '';
       position: absolute;
       bottom: -2px;
       left: 0; right: 0;
-      height: 6px;
+      height: 4px;
       background: repeating-linear-gradient(
         90deg,
-        var(--yellow) 0px,
-        var(--yellow) 8px,
-        var(--pink) 8px,
-        var(--pink) 16px,
-        var(--teal) 16px,
-        var(--teal) 24px,
-        var(--orange) 24px,
-        var(--orange) 32px
+        var(--blue) 0px, var(--blue) 8px,
+        var(--silver) 8px, var(--silver) 16px,
+        #ffffff 16px, #ffffff 24px,
+        var(--blue-dark) 24px, var(--blue-dark) 32px
       );
-      animation: none;
     }
 
     .nav-back {
@@ -111,16 +129,16 @@
       color: var(--text-muted);
       transition: color 0.2s;
     }
-    .nav-back:hover { color: var(--yellow); }
+    .nav-back:hover { color: var(--blue-bright); }
 
-    .nav-divider { width: 1px; height: 24px; background: rgba(255,213,0,0.3); }
+    .nav-divider { width: 1px; height: 24px; background: rgba(26,111,255,0.3); }
 
     .nav-logo {
       font-family: var(--font-fun);
       font-size: 24px;
       letter-spacing: 2px;
-      color: var(--yellow);
-      text-shadow: 0 0 15px rgba(255,213,0,0.5);
+      color: var(--blue-bright);
+      text-shadow: 0 0 15px rgba(26,111,255,0.5);
     }
 
     .nav-links {
@@ -138,9 +156,8 @@
       color: var(--text-muted);
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--teal); }
+    .nav-links a:hover { color: var(--silver-light); }
 
-    /* ===== HERO ===== */
     .hero {
       position: relative;
       min-height: 100vh;
@@ -152,11 +169,10 @@
       text-align: center;
     }
 
-    /* Stars/dots background */
     .hero-stars {
       position: absolute;
       inset: 0;
-      background-image: radial-gradient(circle, rgba(255,213,0,0.15) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(26,111,255,0.2) 1px, transparent 1px);
       background-size: 30px 30px;
       animation: float 6s ease-in-out infinite;
     }
@@ -165,20 +181,19 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 50% 40%, rgba(255,45,120,0.15) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,229,204,0.08) 0%, transparent 50%),
-        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(255,213,0,0.08) 0%, transparent 50%);
+        radial-gradient(ellipse 60% 50% at 50% 40%, rgba(26,111,255,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(192,200,216,0.05) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(26,111,255,0.06) 0%, transparent 50%);
     }
 
-    /* Carnival tent stripes */
     .hero-stripes {
       position: absolute;
       inset: 0;
-      opacity: 0.025;
+      opacity: 0.02;
       background: repeating-linear-gradient(
         -45deg,
-        var(--yellow),
-        var(--yellow) 20px,
+        var(--silver),
+        var(--silver) 20px,
         transparent 20px,
         transparent 60px
       );
@@ -193,8 +208,9 @@
 
     .hero-badge {
       display: inline-block;
-      background: var(--pink);
-      color: #fff;
+      background: var(--blue-dark);
+      border: 1px solid var(--blue-bright);
+      color: var(--silver-light);
       font-family: var(--font-fun);
       font-size: 14px;
       letter-spacing: 3px;
@@ -209,7 +225,7 @@
       font-family: var(--font-display);
       font-size: clamp(52px, 10vw, 120px);
       line-height: 0.95;
-      color: var(--yellow);
+      color: var(--white);
       animation: glow-pulse 3s ease-in-out infinite;
       margin-bottom: 0.5rem;
     }
@@ -217,9 +233,9 @@
     .hero-title-sub {
       font-family: var(--font-fun);
       font-size: clamp(28px, 5vw, 56px);
-      color: var(--teal);
+      color: var(--blue-bright);
       letter-spacing: 2px;
-      text-shadow: 0 0 20px rgba(0,229,204,0.5);
+      text-shadow: 0 0 20px rgba(26,111,255,0.5);
       margin-bottom: 1rem;
     }
 
@@ -228,7 +244,7 @@
       font-size: 13px;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: var(--pink);
+      color: var(--silver-dim);
       margin-bottom: 2rem;
     }
 
@@ -258,7 +274,7 @@
     .hero-stat-num {
       font-family: var(--font-fun);
       font-size: 40px;
-      color: var(--yellow);
+      color: var(--blue-bright);
       line-height: 1;
     }
 
@@ -270,7 +286,6 @@
       color: var(--text-dim);
     }
 
-    /* Carnival bulb decorations */
     .bulb-row {
       display: flex;
       justify-content: center;
@@ -285,12 +300,11 @@
       animation: bulb-flicker 4s infinite;
     }
 
-    .bulb-y { background: var(--yellow); box-shadow: 0 0 8px var(--yellow); animation-delay: 0s; }
-    .bulb-p { background: var(--pink); box-shadow: 0 0 8px var(--pink); animation-delay: 0.5s; }
-    .bulb-t { background: var(--teal); box-shadow: 0 0 8px var(--teal); animation-delay: 1s; }
-    .bulb-o { background: var(--orange); box-shadow: 0 0 8px var(--orange); animation-delay: 1.5s; }
+    .bulb-b { background: var(--blue-bright); box-shadow: 0 0 8px var(--blue-bright); animation-delay: 0s; }
+    .bulb-s { background: var(--silver); box-shadow: 0 0 8px var(--silver); animation-delay: 0.5s; }
+    .bulb-w { background: #ffffff; box-shadow: 0 0 8px #ffffff; animation-delay: 1s; }
+    .bulb-d { background: var(--blue-dark); box-shadow: 0 0 8px var(--blue)); animation-delay: 1.5s; }
 
-    /* ===== SECTIONS ===== */
     .section {
       padding: 4rem 0;
       border-top: 1px solid var(--border);
@@ -316,20 +330,19 @@
       letter-spacing: 1px;
     }
 
-    .section-title span { color: var(--yellow); }
+    .section-title span { color: var(--blue-bright); }
 
     .section-tag {
       font-family: var(--font-mono);
       font-size: 10px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--teal);
-      border: 1px solid var(--border-teal);
+      color: var(--blue-bright);
+      border: 1px solid var(--border-blue);
       padding: 3px 10px;
       border-radius: 20px;
     }
 
-    /* ===== SHOWS ===== */
     .shows-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -349,13 +362,13 @@
     .show-card:hover { transform: translateY(-4px); }
 
     .show-card.wicked {
-      border: 2px solid var(--pink);
-      box-shadow: 0 0 30px rgba(255,45,120,0.1);
+      border: 2px solid var(--blue);
+      box-shadow: 0 0 30px rgba(26,111,255,0.1);
     }
 
     .show-card.addiction {
-      border: 2px solid var(--teal);
-      box-shadow: 0 0 30px rgba(0,229,204,0.1);
+      border: 2px solid var(--silver);
+      box-shadow: 0 0 30px rgba(192,200,216,0.08);
     }
 
     .show-card::before {
@@ -365,8 +378,8 @@
       height: 4px;
     }
 
-    .show-card.wicked::before { background: var(--pink); }
-    .show-card.addiction::before { background: var(--teal); }
+    .show-card.wicked::before { background: var(--blue); }
+    .show-card.addiction::before { background: linear-gradient(to right, var(--silver-dim), var(--white)); }
 
     .show-label {
       font-family: var(--font-mono);
@@ -376,8 +389,8 @@
       margin-bottom: 0.75rem;
     }
 
-    .show-card.wicked .show-label { color: var(--pink); }
-    .show-card.addiction .show-label { color: var(--teal); }
+    .show-card.wicked .show-label { color: var(--blue-bright); }
+    .show-card.addiction .show-label { color: var(--silver); }
 
     .show-name {
       font-family: var(--font-fun);
@@ -385,12 +398,11 @@
       margin-bottom: 0.5rem;
     }
 
-    .show-card.wicked .show-name { color: var(--pink); text-shadow: 0 0 20px rgba(255,45,120,0.4); }
-    .show-card.addiction .show-name { color: var(--teal); text-shadow: 0 0 20px rgba(0,229,204,0.4); }
+    .show-card.wicked .show-name { color: var(--blue-bright); text-shadow: 0 0 20px rgba(26,111,255,0.4); }
+    .show-card.addiction .show-name { color: var(--silver-light); text-shadow: 0 0 20px rgba(192,200,216,0.3); }
 
     .show-desc { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
 
-    /* ===== CHAMPIONSHIPS ===== */
     .champ-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -401,7 +413,7 @@
       background: var(--bg-card);
       border-radius: 12px;
       padding: 1.75rem;
-      border: 2px solid transparent;
+      border: 1px solid var(--border-blue);
       transition: all 0.2s;
       position: relative;
       overflow: hidden;
@@ -412,21 +424,20 @@
       position: absolute;
       inset: 0;
       border-radius: 12px;
-      padding: 2px;
-      background: linear-gradient(135deg, var(--yellow), var(--pink), var(--teal));
+      padding: 1px;
+      background: linear-gradient(135deg, var(--blue), var(--silver), var(--white));
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: destination-out;
       mask-composite: exclude;
     }
 
-    .champ-card:hover { transform: translateY(-3px); background: rgba(255,213,0,0.04); }
+    .champ-card:hover { transform: translateY(-3px); background: rgba(26,111,255,0.05); }
 
     .champ-icon { font-size: 32px; margin-bottom: 1rem; }
-    .champ-name { font-family: var(--font-fun); font-size: 22px; color: var(--yellow); margin-bottom: 0.5rem; }
-    .champ-holder-label { font-family: var(--font-mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 4px; }
+    .champ-name { font-family: var(--font-fun); font-size: 22px; color: var(--blue-bright); margin-bottom: 0.5rem; }
+    .champ-holder-label { font-family: var(--font-mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--silver-dim); margin-bottom: 4px; }
     .champ-holder { font-size: 14px; color: var(--text-muted); }
 
-    /* ===== ARCHIVE ===== */
     .archive-list {
       display: flex;
       flex-direction: column;
@@ -447,15 +458,15 @@
     }
 
     .archive-item:hover {
-      border-color: rgba(255,213,0,0.3);
-      background: rgba(255,213,0,0.03);
+      border-color: var(--border-blue);
+      background: rgba(26,111,255,0.04);
       transform: translateX(4px);
     }
 
     .archive-num {
       font-family: var(--font-mono);
       font-size: 11px;
-      color: var(--yellow);
+      color: var(--blue-bright);
       letter-spacing: 1px;
     }
 
@@ -477,12 +488,11 @@
       border-radius: 20px;
     }
 
-    .type-wicked { background: rgba(255,45,120,0.15); color: var(--pink); border: 1px solid var(--border-pink); }
-    .type-addiction { background: rgba(0,229,204,0.1); color: var(--teal); border: 1px solid var(--border-teal); }
-    .type-ppv { background: rgba(255,213,0,0.1); color: var(--yellow); border: 1px solid rgba(255,213,0,0.3); }
-    .type-report { background: rgba(155,0,255,0.1); color: #c060ff; border: 1px solid rgba(155,0,255,0.3); }
+    .type-wicked { background: rgba(26,111,255,0.15); color: var(--blue-bright); border: 1px solid var(--border-blue); }
+    .type-addiction { background: rgba(192,200,216,0.1); color: var(--silver); border: 1px solid var(--border-silver); }
+    .type-ppv { background: rgba(255,255,255,0.08); color: var(--white); border: 1px solid rgba(255,255,255,0.2); }
+    .type-report { background: rgba(26,111,255,0.08); color: var(--blue-bright); border: 1px solid var(--border-blue); }
 
-    /* ===== ROSTER ===== */
     .roster-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -499,8 +509,8 @@
     }
 
     .roster-card:hover {
-      border-color: rgba(255,45,120,0.4);
-      background: rgba(255,45,120,0.04);
+      border-color: var(--border-blue);
+      background: rgba(26,111,255,0.05);
       transform: translateY(-2px);
     }
 
@@ -517,16 +527,15 @@
       font-size: 9px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: var(--pink);
+      color: var(--blue-bright);
       margin-bottom: 6px;
     }
 
     .roster-style { font-size: 12px; color: var(--text-muted); }
 
-    /* PAW Report section */
     .report-section {
-      background: linear-gradient(135deg, rgba(155,0,255,0.1) 0%, var(--bg-card) 60%);
-      border: 2px solid rgba(155,0,255,0.3);
+      background: linear-gradient(135deg, rgba(26,111,255,0.08) 0%, var(--bg-card) 60%);
+      border: 2px solid var(--border-blue);
       border-radius: 12px;
       padding: 2rem;
       display: flex;
@@ -539,7 +548,7 @@
     .report-title {
       font-family: var(--font-fun);
       font-size: 36px;
-      color: #c060ff;
+      color: var(--blue-bright);
       margin-bottom: 0.5rem;
     }
 
@@ -548,16 +557,15 @@
       font-size: 11px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: rgba(155,0,255,0.6);
+      color: var(--silver-dim);
       margin-bottom: 0.75rem;
     }
 
     .report-desc { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
 
-    /* ===== FOOTER ===== */
     .footer {
       background: var(--bg-mid);
-      border-top: 2px solid var(--yellow);
+      border-top: 2px solid var(--blue);
       padding: 2.5rem 2rem;
       text-align: center;
     }
@@ -565,13 +573,13 @@
     .footer::before {
       content: '';
       display: block;
-      height: 6px;
+      height: 4px;
       background: repeating-linear-gradient(
         90deg,
-        var(--yellow) 0px, var(--yellow) 8px,
-        var(--pink) 8px, var(--pink) 16px,
-        var(--teal) 16px, var(--teal) 24px,
-        var(--orange) 24px, var(--orange) 32px
+        var(--blue) 0px, var(--blue) 8px,
+        var(--silver) 8px, var(--silver) 16px,
+        #ffffff 16px, #ffffff 24px,
+        var(--blue-dark) 24px, var(--blue-dark) 32px
       );
       margin-bottom: 2rem;
       border-radius: 3px;
@@ -580,8 +588,8 @@
     .footer-logo {
       font-family: var(--font-display);
       font-size: 32px;
-      color: var(--yellow);
-      text-shadow: 0 0 20px rgba(255,213,0,0.4);
+      color: var(--white);
+      text-shadow: 0 0 20px rgba(26,111,255,0.4);
       margin-bottom: 0.5rem;
     }
 
@@ -595,19 +603,18 @@
     .footer-back {
       font-family: var(--font-mono);
       font-size: 11px;
-      color: var(--teal);
+      color: var(--blue-bright);
       letter-spacing: 1px;
       transition: color 0.2s;
     }
 
-    .footer-back:hover { color: var(--yellow); }
+    .footer-back:hover { color: var(--silver-light); }
 
-    /* ===== MODAL ===== */
     .modal-overlay {
       position: fixed;
       inset: 0;
       z-index: 1000;
-      background: rgba(4,3,8,0.96);
+      background: rgba(2,3,10,0.96);
       backdrop-filter: blur(8px);
       display: flex;
       align-items: flex-end;
@@ -627,7 +634,7 @@
       max-height: 88vh;
       display: flex;
       flex-direction: column;
-      border: 2px solid var(--yellow);
+      border: 2px solid var(--blue);
       border-bottom: none;
       transform: translateY(20px);
       transition: transform 0.3s;
@@ -644,8 +651,8 @@
       flex-shrink: 0;
     }
 
-    .modal-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 0.5rem; }
-    .modal-title { font-family: var(--font-fun); font-size: 32px; color: var(--yellow); margin-bottom: 0.5rem; }
+    .modal-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--blue-bright); margin-bottom: 0.5rem; }
+    .modal-title { font-family: var(--font-fun); font-size: 32px; color: var(--white); margin-bottom: 0.5rem; }
     .modal-meta { font-size: 13px; color: var(--text-muted); }
 
     .modal-close {
@@ -664,7 +671,7 @@
       flex-shrink: 0;
     }
 
-    .modal-close:hover { background: rgba(255,213,0,0.15); border-color: rgba(255,213,0,0.4); color: var(--yellow); }
+    .modal-close:hover { background: rgba(26,111,255,0.15); border-color: var(--border-blue); color: var(--white); }
 
     .modal-body {
       overflow-y: auto;
@@ -676,7 +683,7 @@
       scrollbar-width: thin;
     }
 
-    .modal-body h2 { font-family: var(--font-fun); font-size: 28px; color: var(--yellow); margin: 2rem 0 1rem; }
+    .modal-body h2 { font-family: var(--font-fun); font-size: 28px; color: var(--blue-bright); margin: 2rem 0 1rem; }
     .modal-body p { margin-bottom: 1.25rem; }
     .modal-body strong { color: var(--text); }
 
@@ -689,6 +696,12 @@
   </style>
 </head>
 <body>
+
+  <!-- HAUNTED GHOSTS — appear and disappear at random intervals -->
+  <div class="ghost ghost-1">👻</div>
+  <div class="ghost ghost-2">👻</div>
+  <div class="ghost ghost-3">👻</div>
+  <div class="ghost ghost-4">👻</div>
 
   <nav class="nav">
     <a href="index.html" class="nav-back">← WrestleFlix</a>
@@ -711,10 +724,10 @@
     <div class="hero-content">
       <div class="hero-badge">WrestleFlix Archive · Legacy Property</div>
       <div class="bulb-row">
-        <div class="bulb bulb-y"></div><div class="bulb bulb-p"></div><div class="bulb bulb-t"></div>
-        <div class="bulb bulb-o"></div><div class="bulb bulb-y"></div><div class="bulb bulb-p"></div>
-        <div class="bulb bulb-t"></div><div class="bulb bulb-o"></div><div class="bulb bulb-y"></div>
-        <div class="bulb bulb-p"></div><div class="bulb bulb-t"></div><div class="bulb bulb-o"></div>
+        <div class="bulb bulb-b"></div><div class="bulb bulb-s"></div><div class="bulb bulb-w"></div>
+        <div class="bulb bulb-d"></div><div class="bulb bulb-b"></div><div class="bulb bulb-s"></div>
+        <div class="bulb bulb-w"></div><div class="bulb bulb-d"></div><div class="bulb bulb-b"></div>
+        <div class="bulb bulb-s"></div><div class="bulb bulb-w"></div><div class="bulb bulb-d"></div>
       </div>
       <h1 class="hero-title">Pure<br/>Amusement<br/>Wrestling</h1>
       <div class="hero-title-sub">WICKED · ADDICTION · PAW</div>
@@ -739,10 +752,10 @@
         </div>
       </div>
       <div class="bulb-row" style="margin-top:2rem;">
-        <div class="bulb bulb-o"></div><div class="bulb bulb-t"></div><div class="bulb bulb-p"></div>
-        <div class="bulb bulb-y"></div><div class="bulb bulb-o"></div><div class="bulb bulb-t"></div>
-        <div class="bulb bulb-p"></div><div class="bulb bulb-y"></div><div class="bulb bulb-o"></div>
-        <div class="bulb bulb-t"></div><div class="bulb bulb-p"></div><div class="bulb bulb-y"></div>
+        <div class="bulb bulb-d"></div><div class="bulb bulb-w"></div><div class="bulb bulb-s"></div>
+        <div class="bulb bulb-b"></div><div class="bulb bulb-d"></div><div class="bulb bulb-w"></div>
+        <div class="bulb bulb-s"></div><div class="bulb bulb-b"></div><div class="bulb bulb-d"></div>
+        <div class="bulb bulb-w"></div><div class="bulb bulb-s"></div><div class="bulb bulb-b"></div>
       </div>
     </div>
   </section>
@@ -924,9 +937,9 @@
     <div class="footer-logo">Pure Amusement Wrestling</div>
     <div class="footer-text">Legacy Property · 2015–2016 · Purity, Louisiana · A WrestleFlix Archive</div>
     <div class="bulb-row" style="justify-content:center;margin:1rem 0;">
-      <div class="bulb bulb-y"></div><div class="bulb bulb-p"></div>
-      <div class="bulb bulb-t"></div><div class="bulb bulb-o"></div>
-      <div class="bulb bulb-y"></div><div class="bulb bulb-p"></div>
+      <div class="bulb bulb-b"></div><div class="bulb bulb-s"></div>
+      <div class="bulb bulb-w"></div><div class="bulb bulb-d"></div>
+      <div class="bulb bulb-b"></div><div class="bulb bulb-s"></div>
     </div>
     <a href="index.html" class="footer-back">← Back to WrestleFlix</a>
   </footer>
