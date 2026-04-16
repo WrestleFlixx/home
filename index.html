@@ -324,17 +324,48 @@
           </div>
         </div>
 
-        <div class="card show-card" onclick="openContent('paw')">
-          <div class="card-poster portrait-poster coming-soon-poster">
+        <div class="card show-card" onclick="window.location.href='paw.html'">
+          <div class="card-poster portrait-poster">
             <img src="https://static.wixstatic.com/media/d0154f_e3d51bc92f0a4344a9f849c76ed29ae7~mv2.png/v1/fit/w_499,h_375,q_90,enc_avif,quality_auto/d0154f_e3d51bc92f0a4344a9f849c76ed29ae7~mv2.png" alt="Pure Amusement" class="poster-img portrait-img" />
             <div class="poster-overlay portrait-overlay">
-              <div class="card-badge-soon">COMING SOON</div>
+              <div class="card-badge-new">ARCHIVE</div>
+              <button class="quick-play">▶</button>
             </div>
             <div class="portrait-title">PURE AMUSEMENT<br/>WRESTLING</div>
           </div>
           <div class="card-info">
             <h3>Pure Amusement Wrestling</h3>
-            <p>From the archives. Before WrestleMecca. Before everything. The park where it started.</p>
+            <p>From the archives. Purity, Louisiana. The park where it all started.</p>
+          </div>
+        </div>
+
+        <div class="card show-card" onclick="window.location.href='awe.html'">
+          <div class="card-poster portrait-poster">
+            <img src="https://static.wixstatic.com/media/d0154f_bc0e1a2595a04b998d2708882aaf78bb~mv2.png/v1/fit/w_499,h_375,q_90,enc_avif,quality_auto/d0154f_bc0e1a2595a04b998d2708882aaf78bb~mv2.png" alt="Alpha Wrestling Empire" class="poster-img portrait-img" />
+            <div class="poster-overlay portrait-overlay">
+              <div class="card-badge-new">ARCHIVE</div>
+              <button class="quick-play">▶</button>
+            </div>
+            <div class="portrait-title">ALPHA WRESTLING<br/>EMPIRE</div>
+          </div>
+          <div class="card-info">
+            <h3>Alpha Wrestling Empire</h3>
+            <p>Sunday Night Massacre. The Alpha Cup. Three divisions. A legacy that defined an era.</p>
+          </div>
+        </div>
+
+        <div class="card show-card" onclick="window.location.href='valorpro.html'">
+          <div class="card-poster portrait-poster">
+            <img src="https://static.wixstatic.com/media/d0154f_9e3271ee26c0429d9154ca8c7aae13de~mv2.png/v1/fit/w_499,h_375,q_90,enc_avif,quality_auto/d0154f_9e3271ee26c0429d9154ca8c7aae13de~mv2.png" alt="Valor Pro Wrestling" class="poster-img portrait-img" />
+            <div class="poster-overlay portrait-overlay">
+              <div class="card-badge-new">ARCHIVE</div>
+              <button class="quick-play">▶</button>
+            </div>
+            <div class="portrait-title">VALOR PRO<br/>WRESTLING</div>
+          </div>
+          <div class="card-info">
+            <h3>Valor Pro Wrestling</h3>
+            <p>Blitz. Flipping the Script. 7 Pillars. The UnYielding Championship. MSG.</p>
           </div>
         </div>
 
@@ -354,6 +385,23 @@
         </div>
       </div>
       <button class="scroll-btn scroll-btn-right" onclick="scrollRow(this,1)"><div class="scroll-btn-inner">&#8250;</div></button>
+      </div>
+    </section>
+
+    <!-- UNIVERSAL ROSTER -->
+    <section class="content-row">
+      <div class="row-header">
+        <h2 class="row-title">Universal Roster</h2>
+        <span class="row-tag">ALL PROPERTIES</span>
+      </div>
+      <div style="padding: 0 max(2rem, calc((100vw - 1400px) / 2 + 2rem)); margin-bottom: 2rem;">
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
+          <div>
+            <div style="font-family:var(--font-display);font-size:28px;letter-spacing:2px;color:var(--text);margin-bottom:0.5rem;">THE COMPLETE ROSTER</div>
+            <p style="font-size:15px;font-weight:300;color:var(--text-muted);max-width:500px;">Every active competitor across all WrestleFlix properties — fighter profiles, stat graphs, championship history, and more.</p>
+          </div>
+          <a href="roster.html" style="background:var(--gold);color:var(--bg);font-family:var(--font-body);font-size:14px;font-weight:700;letter-spacing:0.5px;padding:14px 28px;border-radius:6px;transition:all 0.2s;display:inline-block;">View Full Roster →</a>
+        </div>
       </div>
     </section>
 
@@ -378,6 +426,13 @@
         <a href="#" onclick="openFederation('wrestlemecca')">WrestleMecca</a>
         <a href="#" onclick="openFederation('f2w')">Fight 2 Win</a>
         <a href="aftershock.html">Aftershock</a>
+        <a href="roster.html">Universal Roster</a>
+      </div>
+      <div class="footer-links">
+        <h4>Legacy</h4>
+        <a href="awe.html">Alpha Wrestling Empire</a>
+        <a href="valorpro.html">Valor Pro Wrestling</a>
+        <a href="paw.html">Pure Amusement Wrestling</a>
       </div>
     </div>
     <div class="footer-bottom">
