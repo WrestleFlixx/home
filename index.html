@@ -77,11 +77,43 @@
     .bg-valor    { background: radial-gradient(ellipse 80% 80% at 60% 40%, #14062a, #060210); }
     .bg-paw      { background: radial-gradient(ellipse 80% 80% at 60% 40%, #081808, #020802); }
 
-    /* Char row scroll fix */
-    #char-row-wrap { position: relative; }
-    #char-row { overflow-x: auto; scroll-behavior: smooth; }
+    /* Char row carousel */
+    #char-row-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    #char-row {
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
     #char-row::-webkit-scrollbar { display: none; }
-    #char-row { -ms-overflow-style: none; scrollbar-width: none; }
+    .char-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 20;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      width: 44px;
+      height: 80px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 28px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, opacity 0.2s;
+      opacity: 0;
+    }
+    #char-row-wrap:hover .char-arrow { opacity: 1; }
+    .char-arrow:hover { background: rgba(255,255,255,0.15); }
+    .char-arrow-left  { left: 0; border-radius: 0 4px 4px 0; }
+    .char-arrow-right { right: 0; border-radius: 4px 0 0 4px; }
+    .char-arrow.hidden { display: none; }
   </style>
 </head>
 <body>
@@ -772,29 +804,42 @@ function doSearch(q) {
 
 document.addEventListener('keydown', e => { if(e.key==='Escape') toggleSearch(); });
 
-// ─── CHAR ROW SCROLL ARROWS ───────────────────────────────────────────────────
+// ─── CHAR ROW CAROUSEL ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
   const wrap = document.getElementById('char-row-wrap');
   const row  = document.getElementById('char-row');
   if (!wrap || !row) return;
 
-  // Remove any arrows wf.js already injected on this wrap
+  // Remove any arrows wf.js injected
   wrap.querySelectorAll('.wf-arrow').forEach(a => a.remove());
 
   const left  = document.createElement('button');
   const right = document.createElement('button');
-  left.className  = 'wf-arrow wf-arrow-left';
-  right.className = 'wf-arrow wf-arrow-right';
-  left.innerHTML  = '‹';
-  right.innerHTML = '›';
-  left.setAttribute('aria-label', 'Scroll left');
-  right.setAttribute('aria-label', 'Scroll right');
+  left.className  = 'char-arrow char-arrow-left';
+  right.className = 'char-arrow char-arrow-right';
+  left.innerHTML  = '&#8249;';
+  right.innerHTML = '&#8250;';
+  left.setAttribute('aria-label', 'Previous');
+  right.setAttribute('aria-label', 'Next');
 
-  left.addEventListener('click',  () => row.scrollBy({ left: -600, behavior: 'smooth' }));
-  right.addEventListener('click', () => row.scrollBy({ left:  600, behavior: 'smooth' }));
+  function updateArrows() {
+    left.classList.toggle('hidden', row.scrollLeft <= 0);
+    right.classList.toggle('hidden', row.scrollLeft + row.clientWidth >= row.scrollWidth - 2);
+  }
+
+  left.addEventListener('click', () => {
+    row.scrollBy({ left: -600, behavior: 'smooth' });
+    setTimeout(updateArrows, 400);
+  });
+  right.addEventListener('click', () => {
+    row.scrollBy({ left: 600, behavior: 'smooth' });
+    setTimeout(updateArrows, 400);
+  });
+  row.addEventListener('scroll', updateArrows);
 
   wrap.appendChild(left);
   wrap.appendChild(right);
+  updateArrows();
 });
 
 // ─── KONAMI CODE → PAGE BUILDER ──────────────────────────────────────────────
