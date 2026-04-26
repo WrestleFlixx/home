@@ -8,8 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/css/wf.css"/>
   <style>
-    /* Page-specific additions that don't belong in the shared sheet */
-
     /* Search overlay */
     .search-bar {
       position: absolute; top: 68px; left: 0; right: 0; z-index: 400;
@@ -40,7 +38,7 @@
     .search-card-title { font-size: 13px; font-weight: 600; color: var(--wf-off); margin-bottom: 3px; }
     .search-card-type { font-family: var(--ff-mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--wf-dim); }
 
-    /* Hero slide backgrounds — CSS until real images land */
+    /* Hero slide backgrounds */
     .slide-mecca   { background: radial-gradient(ellipse 80% 80% at 65% 35%, #2a1800, #0a0602); }
     .slide-invader { background: radial-gradient(ellipse 80% 80% at 65% 35%, #001428, #020408); }
     .slide-fma     { background: radial-gradient(ellipse 80% 80% at 65% 35%, #141414, #060606); }
@@ -78,6 +76,12 @@
     .bg-awe      { background: radial-gradient(ellipse 80% 80% at 60% 40%, #021828, #020608); }
     .bg-valor    { background: radial-gradient(ellipse 80% 80% at 60% 40%, #14062a, #060210); }
     .bg-paw      { background: radial-gradient(ellipse 80% 80% at 60% 40%, #081808, #020802); }
+
+    /* Char row scroll fix */
+    #char-row-wrap { position: relative; }
+    #char-row { overflow-x: auto; scroll-behavior: smooth; }
+    #char-row::-webkit-scrollbar { display: none; }
+    #char-row { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
 <body>
@@ -102,7 +106,7 @@
   </div>
 </nav>
 
-<!-- ═══ ROTATING HERO ═══ -->
+<!-- ███ ROTATING HERO ███ -->
 <section class="wf-hero" id="hero">
 
   <!-- Slide 1: WrestleMecca -->
@@ -257,7 +261,7 @@
   </div>
 </div>
 
-<!-- ═══ MAIN CONTENT ═══ -->
+<!-- ███ MAIN CONTENT ███ -->
 <main class="wf-content">
 
   <!-- ACTIVE BRANDS -->
@@ -344,7 +348,6 @@
       <div class="wf-row-wrap">
         <div class="wf-row">
 
-          <!-- FMA -->
           <a href="/shows/french-mime-assassins.html" class="wf-card wf-card-poster">
             <div class="wf-img" data-ratio="2-3" data-type="poster" data-label="185×278 · Show Poster">
               <!-- REPLACE: <img class="wf-img-el" src="img/poster-fma.jpg" alt="French Mime Assassins"/> -->
@@ -366,7 +369,6 @@
             </div>
           </a>
 
-          <!-- inVader -->
           <a href="/shows/invader-series.html" class="wf-card wf-card-poster">
             <div class="wf-img" data-ratio="2-3" data-type="poster" data-label="185×278 · Show Poster">
               <!-- REPLACE: <img class="wf-img-el" src="img/poster-invader.jpg" alt="inVader"/> -->
@@ -388,7 +390,6 @@
             </div>
           </a>
 
-          <!-- Death Graps -->
           <a href="/shows/death-graps-series.html" class="wf-card wf-card-poster">
             <div class="wf-img" data-ratio="2-3" data-type="poster" data-label="185×278 · Show Poster">
               <!-- REPLACE: <img class="wf-img-el" src="img/poster-deathgraps.jpg" alt="Death Graps"/> -->
@@ -410,7 +411,6 @@
             </div>
           </a>
 
-          <!-- Howell -->
           <a href="/shows/howell-are-you-doing.html" class="wf-card wf-card-poster">
             <div class="wf-img" data-ratio="2-3" data-type="poster" data-label="185×278 · Show Poster">
               <!-- REPLACE: <img class="wf-img-el" src="img/poster-howell.jpg" alt="Howell Are You Doing"/> -->
@@ -432,7 +432,6 @@
             </div>
           </a>
 
-          <!-- WrestleMecca -->
           <a href="/shows/wrestlemecca.html" class="wf-card wf-card-poster">
             <div class="wf-img" data-ratio="2-3" data-type="poster" data-label="185×278 · Show Poster">
               <!-- REPLACE: <img class="wf-img-el" src="img/poster-wrestlemecca.jpg" alt="WrestleMecca"/> -->
@@ -454,7 +453,6 @@
             </div>
           </a>
 
-          <!-- William Dawson Christmas Special -->
           <a href="/shows/william-dawson-christmas-special.html" class="wf-card wf-card-poster">
             <div class="wf-img" data-ratio="2-3" data-type="poster" data-label="185×278 · Show Poster">
               <!-- REPLACE: <img class="wf-img-el" src="img/poster-christmas.jpg" alt="William Dawson Christmas Special"/> -->
@@ -481,14 +479,13 @@
     </div>
   </section>
 
-  <!-- FEATURED CHARACTERS — Top 10 style -->
+  <!-- FEATURED CHARACTERS — Top 10 style — SCROLL FIXED -->
   <section class="wf-section" id="characters">
     <div class="wf-section-head"><h2 class="wf-section-title">Featured Characters</h2></div>
     <div class="wf-section-body">
-      <div class="wf-row-wrap">
-        <div class="wf-row">
+      <div class="wf-row-wrap" id="char-row-wrap">
+        <div class="wf-row" id="char-row">
 
-          <!-- Each character card has the Top 10 number behind it -->
           <div style="position:relative;flex-shrink:0;padding-left:40px">
             <span class="top10-num">1</span>
             <a href="/characters/brennan-devlin.html" class="wf-card wf-card-char" style="flex:none">
@@ -705,49 +702,50 @@
 
 <script src="/js/wf.js"></script>
 <script>
+// ─── CATALOG for search ───────────────────────────────────────────────────────
 const CATALOG = [
-  {t:'French Mime Assassins',s:'S1 · 13 Ep · Comedy Wrestling',e:'🎭',url:'french-mime-assassins.html',type:'ORIGINAL'},
-  {t:'inVader',s:'S1 · 3 Ep · Sci-Fi Wrestling',e:'👽',url:'invader-series.html',type:'ORIGINAL'},
-  {t:'Howell Are You Doing?',s:'S1 · 7 Ep · Talk Show',e:'🎙️',url:'howell-are-you-doing.html',type:'ORIGINAL'},
-  {t:'Death Graps',s:'Season 1 · Hardcore',e:'💀',url:'death-graps-series.html',type:'ORIGINAL'},
-  {t:'WrestleMecca',s:'3 Events · PPV',e:'🏆',url:'wrestlemecca.html',type:'PPV'},
-  {t:"William Dawson's Christmas Special",s:'Holiday · PAW',e:'🎅',url:'william-dawson-christmas-special.html',type:'SPECIAL'},
-  {t:'AWE Massacre',s:'S1 · 10 Ep · 2016–17',e:'📺',url:'awe-massacre.html',type:'LEGACY'},
-  {t:'Valor Pro Blitz',s:'S1 · 7 Events · 2018',e:'🌍',url:'valor-pro-blitz.html',type:'LEGACY'},
-  {t:'Aftershock',s:'Active Sub-Brand',e:'⚡',url:'aftershock.html',type:'BRAND'},
-  {t:'CCW',s:'Christ-Centered Wrestling',e:'✝',url:'ccw.html',type:'BRAND'},
-  {t:'SSW',s:'Satan-Slanted Wrestling',e:'🔥',url:'ssw.html',type:'BRAND'},
-  {t:'Fight 2 Win',s:'F2W Roster',e:'👊',url:'roster-f2w.html',type:'BRAND'},
-  {t:'AWE',s:'Alpha Wrestling Empire Archive',e:'👑',url:'awe.html',type:'ARCHIVE'},
-  {t:'Valor Pro',s:'Valor Pro History',e:'⚔️',url:'valorpro.html',type:'ARCHIVE'},
-  {t:'PAW',s:'Pure Amusement Wrestling',e:'🎡',url:'paw.html',type:'ARCHIVE'},
-  {t:'Brennan Devlin',s:'CCW · SSW · 51-0',e:'😎',url:'character-brennan-devlin.html',type:'CHARACTER'},
-  {t:'Kassandrah',s:'AWE COO · Feb 30 1930',e:'🔮',url:'character-kassandrah.html',type:'CHARACTER'},
-  {t:'inVader',s:'Cosmic Entity · Prune Juice',e:'👽',url:'character-invader.html',type:'CHARACTER'},
-  {t:'Anastasia Hayden',s:'12x Champion',e:'🩸',url:'character-anastasia-hayden.html',type:'CHARACTER'},
-  {t:'Zack Fantana',s:'Lives in The Mop',e:'🧹',url:'character-zack-fantana.html',type:'CHARACTER'},
-  {t:'Rickie Flare',s:'16x World Champion · WOO!',e:'🦚',url:'character-rickie-flare.html',type:'CHARACTER'},
-  {t:'Gwenevere',s:'S-Tier · Class-3 Risk',e:'🌿',url:'character-gwenevere.html',type:'CHARACTER'},
-  {t:'Red Lock Legion',s:'Cardiff Wales · Howell Family',e:'🔴',url:'character-red-lock-legion.html',type:'CHARACTER'},
-  {t:'Maddie Stokes',s:"Brad's Daughter · Complete Champion",e:'🍁',url:'character-maddie-stokes.html',type:'CHARACTER'},
-  {t:'Stabitha',s:'Void Creature · Centuries Old',e:'🔪',url:'character-stabitha.html',type:'CHARACTER'},
-  {t:'Silas Romero',s:'Knockout Supreme · Devlin-Guns',e:'🥊',url:'character-silas-romero.html',type:'CHARACTER'},
-  {t:'JD Driftwood',s:'Key West FL · 300 lbs',e:'💀',url:'character-jd-driftwood.html',type:'CHARACTER'},
-  {t:'Ivana Fondleberg',s:'Stockholm Dynasty',e:'👑',url:'character-ivana-fondleberg.html',type:'CHARACTER'},
-  {t:'Bembe Brightwell',s:'Rubber Muscles · Lightning',e:'⚡',url:'character-bembe-brightwell.html',type:'CHARACTER'},
-  {t:'Motley Censori',s:'Las Vegas · 630 Senton',e:'🌸',url:'character-motley-censori.html',type:'CHARACTER'},
-  {t:'Waverly Winters',s:'Pigeon Forge TN',e:'❄️',url:'character-waverly-winters.html',type:'CHARACTER'},
-  {t:'Hatchet Gully',s:'Pennsyltucky · Juggalo',e:'🪓',url:'character-hatchet-gully.html',type:'CHARACTER'},
-  {t:'Warrick Hill',s:'lol i just beat people up',e:'🚬',url:'character-warrick-hill.html',type:'CHARACTER'},
-  {t:'Cosmo Cooper',s:'MMA · 13 Championships',e:'🥋',url:'character-cosmo-cooper.html',type:'CHARACTER'},
-  {t:'V.A.G.',s:'Victoria Ann Gable',e:'💎',url:'character-vag.html',type:'CHARACTER'},
-  {t:'Thot Experiment',s:'Dr. Sharpe & Dr. Masters',e:'🔬',url:'character-thot-experiment.html',type:'CHARACTER'},
-  {t:'Harper Lee',s:'Providence RI · Emo Ironically',e:'🎭',url:'character-harper-lee.html',type:'CHARACTER'},
-  {t:'Mad Max',s:'Billed From: The Future',e:'⚡',url:'character-mad-max.html',type:'CHARACTER'},
-  {t:'Erica Bragg',s:'2024 Return · Charlotte NC',e:'💪',url:'character-erica-bragg.html',type:'CHARACTER'},
-  {t:'Dashing Dash Dawkins',s:'Mirror-Obsessed · Amarillo TX',e:'🪞',url:'character-dashing-dash-dawkins.html',type:'CHARACTER'},
-  {t:'Gorgonzola',s:'Bio Pending',e:'🧀',url:'character-gorgonzola.html',type:'CHARACTER'},
-  {t:'WrestleMecca Bracket',s:'32-Person Tournament',e:'📊',url:'bracket.html',type:'BRACKET'},
+  {t:'French Mime Assassins',s:'S1 · 13 Ep · Comedy Wrestling',e:'🎭',url:'/shows/french-mime-assassins.html',type:'ORIGINAL'},
+  {t:'inVader',s:'S1 · 3 Ep · Sci-Fi Wrestling',e:'👽',url:'/shows/invader-series.html',type:'ORIGINAL'},
+  {t:'Howell Are You Doing?',s:'S1 · 7 Ep · Talk Show',e:'🎙️',url:'/shows/howell-are-you-doing.html',type:'ORIGINAL'},
+  {t:'Death Graps',s:'Season 1 · Hardcore',e:'💀',url:'/shows/death-graps-series.html',type:'ORIGINAL'},
+  {t:'WrestleMecca',s:'3 Events · PPV',e:'🏆',url:'/shows/wrestlemecca.html',type:'PPV'},
+  {t:"William Dawson's Christmas Special",s:'Holiday · PAW',e:'🎄',url:'/shows/william-dawson-christmas-special.html',type:'SPECIAL'},
+  {t:'AWE Massacre',s:'S1 · 10 Ep · 2016–17',e:'📺',url:'/shows/awe-massacre.html',type:'LEGACY'},
+  {t:'Valor Pro Blitz',s:'S1 · 7 Events · 2018',e:'🌟',url:'/shows/valor-pro-blitz.html',type:'LEGACY'},
+  {t:'Aftershock',s:'Active Sub-Brand',e:'⚡',url:'/brands/aftershock.html',type:'BRAND'},
+  {t:'CCW',s:'Christ-Centered Wrestling',e:'✝',url:'/brands/ccw.html',type:'BRAND'},
+  {t:'SSW',s:'Satan-Slanted Wrestling',e:'🔥',url:'/brands/ssw.html',type:'BRAND'},
+  {t:'Fight 2 Win',s:'F2W Roster',e:'👊',url:'/brands/fight-2-win.html',type:'BRAND'},
+  {t:'AWE',s:'Alpha Wrestling Empire Archive',e:'📼',url:'/archive/awe.html',type:'ARCHIVE'},
+  {t:'Valor Pro',s:'Valor Pro History',e:'⚔️',url:'/archive/valorpro.html',type:'ARCHIVE'},
+  {t:'PAW',s:'Pure Amusement Wrestling',e:'🎪',url:'/archive/paw.html',type:'ARCHIVE'},
+  {t:'Brennan Devlin',s:'CCW · SSW · 51-0',e:'😎',url:'/characters/brennan-devlin.html',type:'CHARACTER'},
+  {t:'Kassandrah',s:'AWE COO · Feb 30 1930',e:'🔮',url:'/characters/kassandrah.html',type:'CHARACTER'},
+  {t:'inVader',s:'Cosmic Entity · Prune Juice',e:'👽',url:'/characters/invader.html',type:'CHARACTER'},
+  {t:'Anastasia Hayden',s:'12x Champion',e:'💪',url:'/characters/anastasia-hayden.html',type:'CHARACTER'},
+  {t:'Zack Fantana',s:'Lives in The Mop',e:'🧹',url:'/characters/zack-fantana.html',type:'CHARACTER'},
+  {t:'Rickie Flare',s:'16x World Champion · WOO!',e:'💎',url:'/characters/rickie-flare.html',type:'CHARACTER'},
+  {t:'Gwenevere',s:'S-Tier · Class-3 Risk',e:'🤖',url:'/characters/gwenevere.html',type:'CHARACTER'},
+  {t:'Red Lock Legion',s:'Cardiff Wales · Howell Family',e:'🏴',url:'/characters/red-lock-legion.html',type:'CHARACTER'},
+  {t:'Maddie Stokes',s:"Brad's Daughter · Complete Champion",e:'🏅',url:'/characters/maddie-stokes.html',type:'CHARACTER'},
+  {t:'Stabitha',s:'Void Creature · Centuries Old',e:'🔪',url:'/characters/stabitha.html',type:'CHARACTER'},
+  {t:'Silas Romero',s:'Knockout Supreme · Devlin-Guns',e:'🥊',url:'/characters/silas-romero.html',type:'CHARACTER'},
+  {t:'JD Driftwood',s:'Key West FL · 300 lbs',e:'💀',url:'/characters/jd-driftwood.html',type:'CHARACTER'},
+  {t:'Ivana Fondleberg',s:'Stockholm Dynasty',e:'📼',url:'/characters/ivana-fondleberg.html',type:'CHARACTER'},
+  {t:'Bembe Brightwell',s:'Rubber Muscles · Lightning',e:'⚡',url:'/characters/bembe-brightwell.html',type:'CHARACTER'},
+  {t:'Motley Censori',s:'Las Vegas · 630 Senton',e:'🎰',url:'/characters/motley-censori.html',type:'CHARACTER'},
+  {t:'Waverly Winters',s:'Pigeon Forge TN',e:'❤️',url:'/characters/waverly-winters.html',type:'CHARACTER'},
+  {t:'Hatchet Gully',s:'Pennsyltucky · Juggalo',e:'🪓',url:'/characters/hatchet-gully.html',type:'CHARACTER'},
+  {t:'Warrick Hill',s:'lol i just beat people up',e:'😂',url:'/characters/warrick-hill.html',type:'CHARACTER'},
+  {t:'Cosmo Cooper',s:'MMA · 13 Championships',e:'🥋',url:'/characters/cosmo-cooper.html',type:'CHARACTER'},
+  {t:'V.A.G.',s:'Victoria Ann Gable',e:'💄',url:'/characters/vag.html',type:'CHARACTER'},
+  {t:'Thot Experiment',s:'Dr. Sharpe & Dr. Masters',e:'🔬',url:'/characters/thot-experiment.html',type:'CHARACTER'},
+  {t:'Harper Lee',s:'Providence RI · Emo Ironically',e:'🎸',url:'/characters/harper-lee.html',type:'CHARACTER'},
+  {t:'Mad Max',s:'Billed From: The Future',e:'⚡',url:'/characters/mad-max.html',type:'CHARACTER'},
+  {t:'Erica Bragg',s:'2024 Return · Charlotte NC',e:'💪',url:'/characters/erica-bragg.html',type:'CHARACTER'},
+  {t:'Dashing Dash Dawkins',s:'Mirror-Obsessed · Amarillo TX',e:'🪞',url:'/characters/dashing-dash-dawkins.html',type:'CHARACTER'},
+  {t:'Gorgonzola',s:'Bio Pending',e:'🧀',url:'/characters/gorgonzola.html',type:'CHARACTER'},
+  {t:'WrestleMecca Bracket',s:'32-Person Tournament',e:'📊',url:'/rosters/wrestlemecca-bracket.html',type:'BRACKET'},
 ];
 
 function toggleSearch() {
@@ -773,6 +771,48 @@ function doSearch(q) {
 }
 
 document.addEventListener('keydown', e => { if(e.key==='Escape') toggleSearch(); });
+
+// ─── CHAR ROW SCROLL ARROWS ───────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  const wrap = document.getElementById('char-row-wrap');
+  const row  = document.getElementById('char-row');
+  if (!wrap || !row) return;
+
+  // Remove any arrows wf.js already injected on this wrap
+  wrap.querySelectorAll('.wf-arrow').forEach(a => a.remove());
+
+  const left  = document.createElement('button');
+  const right = document.createElement('button');
+  left.className  = 'wf-arrow wf-arrow-left';
+  right.className = 'wf-arrow wf-arrow-right';
+  left.innerHTML  = '‹';
+  right.innerHTML = '›';
+  left.setAttribute('aria-label', 'Scroll left');
+  right.setAttribute('aria-label', 'Scroll right');
+
+  left.addEventListener('click',  () => row.scrollBy({ left: -600, behavior: 'smooth' }));
+  right.addEventListener('click', () => row.scrollBy({ left:  600, behavior: 'smooth' }));
+
+  wrap.appendChild(left);
+  wrap.appendChild(right);
+});
+
+// ─── KONAMI CODE → PAGE BUILDER ──────────────────────────────────────────────
+(function() {
+  const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let idx = 0;
+  document.addEventListener('keydown', function(e) {
+    if (e.key === seq[idx]) {
+      idx++;
+      if (idx === seq.length) {
+        idx = 0;
+        window.location.href = '/tools/page-builder.html';
+      }
+    } else {
+      idx = (e.key === seq[0]) ? 1 : 0;
+    }
+  });
+})();
 </script>
 </body>
 </html>
